@@ -2,3 +2,4 @@ web: gunicorn Djangocurd.wsgi
 
 
 
+
