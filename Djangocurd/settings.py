@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +21,23 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+3i$q))0-w@rf(fqizbw*frq&qn+=d7rn%91orr_o1t=r&%h0w'
+
+
+SECRET_KEY = os.getenv('SECRET_KEY')
+if not SECRET_KEY:
+    raise Exception("SECRET_KEY environment variable is not set.")
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'web-production-3355.up.railway.app',  # Add your Railway domain here
+]
+
 
 
 # Application definition
@@ -120,9 +132,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Optional (useful during development)
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
 
 
 # Default primary key field type
