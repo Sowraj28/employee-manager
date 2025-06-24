@@ -46,27 +46,41 @@ function prevPage() {
 }
 
 function searchEmployee() {
-  const query = document
-    .getElementById("searchInput")
-    .value.trim()
-    .toLowerCase();
+  const query = document.getElementById("searchInput").value.trim();
   if (!query) return;
 
-  fetch("/search-employee/?q=" + encodeURIComponent(query))
-    .then((res) => res.json())
+  fetch("/search/?q=" + encodeURIComponent(query))
+    // ✅ Corrected endpoint
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Network response was not ok.");
+      }
+      return res.json();
+    })
     .then((data) => {
       if (data.success && data.employees.length > 0) {
         searchResults = data.employees;
         currentPage = 0;
         renderEmployeePage();
       } else {
-        document.getElementById(
-          "searchResultContent"
-        ).innerHTML = `<p style="color:red;">${data.message}</p>`;
+        document.getElementById("searchResultContent").innerHTML = `
+          <p style="color:red;">${
+            data.message || "No matching employee found."
+          }</p>
+        `;
       }
+
+      // ✅ Show the modal
       new bootstrap.Modal(document.getElementById("searchModal")).show();
 
-      // Clear search input after showing results
+      // ✅ Clear the input field
       document.getElementById("searchInput").value = "";
+    })
+    .catch((error) => {
+      console.error("Search error:", error);
+      document.getElementById(
+        "searchResultContent"
+      ).innerHTML = `<p style="color:red;">Error while searching. Please try again.</p>`;
+      new bootstrap.Modal(document.getElementById("searchModal")).show();
     });
 }

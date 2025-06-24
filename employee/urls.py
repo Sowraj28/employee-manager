@@ -9,8 +9,8 @@ urlpatterns = [
     path('Create/',Create_employee,name='create'),
     path('update/<int:pk>',update_employee,name='update'),
     path('delete/<int:pk>',delete_employee,name='delete'),
-   path('deleted-history/', deleted_history, name='deleted_history'),
-   path('search-employee/', search_employee, name='search_employee'), 
+    path('deleted-history/', deleted_history, name='deleted_history'),
+    path('search/', search_employee, name='search_employee'),
 
 
 ]
