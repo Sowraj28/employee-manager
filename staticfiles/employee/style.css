@@ -1,0 +1,11 @@
+.search-input::placeholder {
+  color: rgb(183, 170, 19);
+  opacity: 1;
+}
+
+.modal-content {
+  background-color: black;
+  color: white;
+  opacity: 0.95;
+  border-radius: 10px;
+}
