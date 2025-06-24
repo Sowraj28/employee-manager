@@ -35,7 +35,7 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'web-production-3355.up.railway.app',  # Add your Railway domain here
+    'web-production-3355.up.railway.app',
 ]
 
 
