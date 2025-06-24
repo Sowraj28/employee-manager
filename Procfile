@@ -1,1 +1,3 @@
-web: gunicorn EMPMANGE.wsgi
+web: gunicorn Djangocurd.wsgi
+
+
